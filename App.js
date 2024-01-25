@@ -6,7 +6,7 @@ import Goal from './components/Goal';
 export default function App() {
   
   const [goal, setGoal] = useState();
-  const [goalItems, setGoalItems] = useState();
+  const [goalItems, setGoalItems] = useState([]);
 
   const sampleGoals = [
     "Faire les courses",
@@ -22,14 +22,15 @@ export default function App() {
    ];
 
   const handleAddGoal = () => {
-    setGoalItems([...goalItems,goal])
-    //console.log(goal);
+    setGoalItems([...goalItems, goal])
+    setGoal(null);
+    console.log(goal);
   }
 
-  const completeGoal = (index) => {
-    let itemsCopy = [...goalItems];
-    itemsCopy.splice(index, 1);
-  }
+  // const completeGoal = (index) => {
+  //   let itemsCopy = [...goalItems];
+  //   itemsCopy.splice(index, 1);
+  // }
 
   return (
     <View style={styles.container}>
@@ -38,19 +39,18 @@ export default function App() {
         { console.log("samplegoals :",sampleGoals) }
         <View style={styles.items}>{
           sampleGoals.map((item, index) => 
-            <TouchableOpacity  key={index} onPress={() => completeGoal()}>
-              <Goal text item={item} />
+            // <TouchableOpacity  key={index} onPress={() => completeGoal()}>
+            <TouchableOpacity>
+              <Goal key={index} text={item} />
             </TouchableOpacity>
           )
         }</View> 
         </View> 
-       
-
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? "padding" : "height"}
         style={styles.writeGoalWrapper}>
-        <TextInput style={styles.input} placeholder="Write your new goals" onChangeText={text => setGoal(text)} />
-        <TouchableOpacity onPress={()=>handleAddGoal()}>
+        <TextInput style={styles.input} placeholder={"Write your new goals"} value={goal} onChangeText={text => setGoal(text)} />
+        <TouchableOpacity onPress={handleAddGoal}>
           <View style={styles.addWrapper}>
             <Text style={styles.button}>+</Text>
           </View>
