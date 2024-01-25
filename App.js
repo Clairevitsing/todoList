@@ -25,8 +25,10 @@ export default function App() {
       <Text style={styles.h1}>Liste de goals</Text>
       <Text style={styles.input }></Text>
       <Text style={styles.button}>Add</Text>
+      <View style={styles.item}>
+        <Text style={styles.li}>{listGoals}</Text>
+      </View>
       
-      <Text style={styles.li}>{listGoals}</Text>
       
       <StatusBar style="auto" />
     </View>
