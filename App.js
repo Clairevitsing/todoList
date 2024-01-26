@@ -11,52 +11,54 @@ export default function App() {
   const sampleGoals = [
     "Faire les courses",
     "Aller à la salle de sport 3 fois par semaine",
-    "Monter à plus de 5000m d'altitude",
-    "Acheter mon premier appartement",
-    "Perdre 5 kgs",
-    "Gagner en productivité",
-    "Apprendre un nouveau langage",
-    "Faire une mission en freelance",
-    "Organiser un meetup autour de la tech",
-    "Faire un triathlon",
+    //"Monter à plus de 5000m d'altitude",
+    // // "Acheter mon premier appartement",
+    // // "Perdre 5 kgs",
+    // // "Gagner en productivité",
+    // // "Apprendre un nouveau langage",
+    // // "Faire une mission en freelance",
+    // // "Organiser un meetup autour de la tech",
+    // // "Faire un triathlon",
    ];
 
-  const handleAddGoal = () => {
-    setGoalItems([...goalItems, goal])
-    setGoal(null);
+  const addGoal = () => {
+    setGoalItems((goalItems) => [...goalItems, goal]);
     console.log(goal);
+    // console.log(goalItems);
+  }
+
+ const deleteGoal = (index) => {
+    let itemsCopy = [...goalItems];
+    itemsCopy.splice(index, 1);
+    setGoalItems(itemsCopy);
   }
 
   // const deleteGoal = (index) => {
-  //   let itemsCopy = [...goalItems];
-  //   itemsCopy.splice(index, 1);
-  //   setGoalItems(itemsCopy);
+  //   const updateItems = [...goalItems];
+  //   const newList = updateItems.filter((item) => item.index !== index);
+  //   setGoalItems(newList);
   // }
-
-  const deleteGoal = (index) => {
-    const updateItems = [...goalItems];
-    const newList = updateItems.filter((item) => item.id !== id);
-    setGoalItems(newList);
-  }
 
   return (
     <View style={styles.container}>
       <View style={styles.goalsWrapper}>
         <Text style={styles.sectionTitle}>Liste de goals</Text>
         { console.log("samplegoals :",sampleGoals) }
-        <View style={styles.items}>{
-          sampleGoals.map((item,index) => 
-            <TouchableOpacity onPress={() => deleteGoal(index)}>
-              <Goal key={index} text item={item} />
+        <View style={styles.goalItems}>{
+          goalItems.map((item,index) => {
+            return <TouchableOpacity key={index} onPress={() => deleteGoal(index)}>
+              <Goal text item={item} />
             </TouchableOpacity>
+            }
           )
         }</View> 
+        { console.log("samplegoals :",sampleGoals) }
         </View> 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? "padding" : "height"}
         style={styles.writeGoalWrapper}>
         <TextInput style={styles.input} placeholder={"Write your new goals"} value={goal} onChangeText={text => setGoal(text)} />
-        <TouchableOpacity onPress={handleAddGoal}>
+        <TouchableOpacity onPress={addGoal}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
@@ -91,7 +93,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  items: {
+  goalItems: {
     marginTop: 30,
     
   },

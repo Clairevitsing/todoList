@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity,Pressable  } from 'react-native';
 
 
 const Goal = (props) => {
@@ -18,9 +18,9 @@ const Goal = (props) => {
                 <View style={styles.square}></View>
                 <Text style={styles.itemText}>{props.item}</Text> 
             </View>
-            <View style={styles.itemRight}>
-                <Text style={styles.button}>X</Text>
-            </View>
+                 <Pressable style={styles.button}>
+                 <Text style={styles.text}>X</Text>
+                 </Pressable>
         </View>
     )
  
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     },
 
     itemLeft: {
+        display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         flexWrap: 'wrap',
@@ -61,11 +62,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     button: {
-        backgroundColor: '#DC143C',
-        color: 'white',
-        padding: 5,
-        textAlign: 'center',
-        fontSize: 10,
+        display: 'flex',
+        flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: '#DC143C',
     }
 
 });
