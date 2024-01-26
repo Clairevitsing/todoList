@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform, KeyboardAvoidingView } from 'react-native';
-import { useState } from 'react';
+import react, { useState } from 'react';
 import Goal from './components/Goal';
 
 export default function App() {
   
-  const [goal, setGoal] = useState();
+  const [goal, setGoal] = useState('');
   const [goalItems, setGoalItems] = useState([]);
 
   const sampleGoals = [
@@ -27,10 +27,17 @@ export default function App() {
     console.log(goal);
   }
 
-  // const completeGoal = (index) => {
+  // const deleteGoal = (index) => {
   //   let itemsCopy = [...goalItems];
   //   itemsCopy.splice(index, 1);
+  //   setGoalItems(itemsCopy);
   // }
+
+  const deleteGoal = (index) => {
+    const updateItems = [...goalItems];
+    const newList = updateItems.filter((item) => item.id !== id);
+    setGoalItems(newList);
+  }
 
   return (
     <View style={styles.container}>
@@ -38,10 +45,9 @@ export default function App() {
         <Text style={styles.sectionTitle}>Liste de goals</Text>
         { console.log("samplegoals :",sampleGoals) }
         <View style={styles.items}>{
-          sampleGoals.map((item, index) => 
-            // <TouchableOpacity  key={index} onPress={() => completeGoal()}>
-            <TouchableOpacity>
-              <Goal key={index} text={item} />
+          sampleGoals.map((item,index) => 
+            <TouchableOpacity onPress={() => deleteGoal(index)}>
+              <Goal key={index} text item={item} />
             </TouchableOpacity>
           )
         }</View> 
@@ -52,7 +58,7 @@ export default function App() {
         <TextInput style={styles.input} placeholder={"Write your new goals"} value={goal} onChangeText={text => setGoal(text)} />
         <TouchableOpacity onPress={handleAddGoal}>
           <View style={styles.addWrapper}>
-            <Text style={styles.button}>+</Text>
+            <Text style={styles.addText}>+</Text>
           </View>
         </TouchableOpacity>
         </KeyboardAvoidingView>
@@ -64,10 +70,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   sectionTitle: {
+    color: '#fff',
     fontSize: 20,
   },
   button: {
@@ -81,14 +86,13 @@ const styles = StyleSheet.create({
     paddingTop: 80,
     paddingHorizontal: 20,
   },
-
   sectionTitle: {
     fontSize: 24,
     fontWeight: 'bold',
   },
 
   items: {
-    padding: 10,
+    marginTop: 30,
     
   },
   writeGoalWrapper: {
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
     bottom: 60,
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
   input: {
@@ -111,13 +115,12 @@ const styles = StyleSheet.create({
   addWrapper: {
     width: 60,
     height: 60,
-    backgroundColor: '#FFF',
+    backgroundColor: '#32cd32',
     borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: '#C0C0C0',
-    borderWidth: 1,
-    width: 250,
+    borderColor: '#00ffff',
+    borderWidth: 1
   }
 
 });

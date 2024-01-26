@@ -1,20 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+
 
 const Goal = (props) => {
     
-    console.log(props);
+  //  console.log(props);
   
 //    const listGoals = sampleGoals.map((goal,index) =>
 //       <Text key={index}>{goal}</Text>
-//        );
+//            );
+    
     return (
         
         <View style={styles.item}>
-            <View style={styles.itemleft}>
-                <TouchableOpacity style={styles.square}></TouchableOpacity>
-                <Text style={styles.itemText}>{props.item}</Text>
-            <View style={styles.circular}></View>
+            <View style={styles.itemLeft}>
+                <View style={styles.square}></View>
+                <Text style={styles.itemText}>{props.item}</Text> 
+            </View>
+            <View style={styles.itemRight}>
+                <Text style={styles.button}>X</Text>
             </View>
         </View>
     )
@@ -23,12 +28,14 @@ const Goal = (props) => {
 
 const styles = StyleSheet.create({
     item: {
-        backgroundColor: '#FFF',
+        diplay: 'flex', 
+        backgroundColor: '#ffe4e1',
         padding: 15,
+        borderWidth: 1,
+        borderColor: '#1e90ff',
         borderRadius: 10,
         fixDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         marginBottom: 20,
     },
 
@@ -46,13 +53,21 @@ const styles = StyleSheet.create({
         marginRight: 15,
     },
 
-    circular: {
-        width: 12,
-        height: 12,
-        borderColor: '#55BCF6',
-        borderWidth: 2,
-        borderRadius: 5,
+    itemText: {
+        maxWidth: '60%',
     },
+
+    itemRight: {
+        flexDirection: 'row',
+    },
+    button: {
+        backgroundColor: '#DC143C',
+        color: 'white',
+        padding: 5,
+        textAlign: 'center',
+        fontSize: 10,
+    }
+
 });
 
 
