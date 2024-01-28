@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform, KeyboardAvoidingView,Alert,Pressable } from 'react-native';
-import react, { useState } from 'react';
+import { ImageBackground, StyleSheet, Text, View, TextInput, TouchableOpacity, Platform, KeyboardAvoidingView,Alert,Pressable } from 'react-native';
+import react, { useState} from 'react';
 
 export default function App() {
   
@@ -10,21 +10,27 @@ export default function App() {
     
     "Faire les courses",
     "Aller à la salle de sport 3 fois par semaine",
-    //"Monter à plus de 5000m d'altitude",
-    // // "Acheter mon premier appartement",
-    // // "Perdre 5 kgs",
-    // // "Gagner en productivité",
-    // // "Apprendre un nouveau langage",
-    // // "Faire une mission en freelance",
-    // // "Organiser un meetup autour de la tech",
-    // // "Faire un triathlon",
+    "Monter à plus de 5000m d'altitude",
+    // "Acheter mon premier appartement",
+    // "Perdre 5 kgs",
+    // "Gagner en productivité",
+    // "Apprendre un nouveau langage",
+    // "Faire une mission en freelance",
+    // "Organiser un meetup autour de la tech",
+    // "Faire un triathlon",
   ];
   const [goal, setGoal] = useState('');
+  const [editedGoal, setEditedGoal] = useState(null);
 
   //il faut initialiser le tableau
   const [goalItems, setGoalItems] = useState(sampleGoals);
 
+
   const addGoal = () => {
+   
+    if (goal === "") {
+      return;
+    }
     setGoalItems((goalItems) => [...goalItems, goal]);
     console.log(goal);
     // console.log(goalItems);
@@ -43,35 +49,42 @@ export default function App() {
         text: 'Confirm',
         onPress: () => {
 
-          let itemsCopy = [...goalItems];
-          itemsCopy.splice(index, 1);
-          setGoalItems(itemsCopy);
+          let updatedGoals = [...goalItems];
+          updatedGoals.splice(index, 1);
+          setGoalItems(updatedGoals);
         }
       },
     ]);
-
-  
-   
   }
 
+  const editGoal = (index) => { 
+    setEditedGoal(goalItems[index]);
+  };
+  const UpdateGoal = (index,editedGoal) => {
+    const updatedGoals = [...goalItems];
+    updatedGoals[index] = editedGoal;
+    console.log("updatedGoals:", updatedGoals[index])
+    setGoalItems(updatedGoals);
+  }
 
   return (
      
     <View style={styles.container}>
+      <ImageBackground source={require('./assets/home.jpg')} resizeMode='cover' style={styles.image}>
       <View style={styles.goalsWrapper}>
         <Text style={styles.sectionTitle}>Liste de goals</Text>
         { console.log("samplegoals :",sampleGoals) }
         <View style={styles.goalItems}>{
           goalItems.map((item,index) => {
             return (
-             <View style={styles.item}>
+             <View style={styles.item} key={index.toString()}>
               <View style={styles.itemLeft}>
                 <View style={styles.square}></View>
                 <Text style={styles.itemText}>{item}</Text>
-                <Pressable style={styles.deleteButton} key={index} onPress={() => deleteGoal(index)}>
+                <Pressable style={styles.deleteButton} onPress={() => deleteGoal(index)}>
                   <Text style={styles.text}>X</Text>
                 </Pressable>
-                <Pressable style={styles.editButton}>
+                <Pressable style={styles.editButton} onPress={() => UpdateGoal(index,editedGoal)}>
                   <Text style={styles.text}>edit</Text>
                 </Pressable>
               </View>
@@ -81,7 +94,7 @@ export default function App() {
           )
         }</View> 
        
-        </View> 
+      </View> 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? "padding" : "height"}
         style={styles.writeGoalWrapper}>
@@ -92,6 +105,7 @@ export default function App() {
           </View>
         </TouchableOpacity>
         </KeyboardAvoidingView>
+        </ImageBackground>
     </View>
   )
 }
@@ -100,6 +114,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  image: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   sectionTitle: {
     color: '#fff',
