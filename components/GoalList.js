@@ -1,10 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
+import {  ScrollView,StyleSheet } from 'react-native';
 import GoalItem from './GoalItem';
 
 const GoalList = ({ goalItems,  onDelete, onUpdate }) => {
   return (
-    <View>
+    <ScrollView style={styles.scrollView}>
       {goalItems.map((item, index) => (
         <GoalItem
           key={index.toString()}
@@ -14,8 +14,10 @@ const GoalList = ({ goalItems,  onDelete, onUpdate }) => {
           onUpdate={onUpdate}
         />
       ))}
-    </View>
+    </ScrollView>
   );
 };
+const styles = StyleSheet.create({
+  });
 
 export default GoalList;

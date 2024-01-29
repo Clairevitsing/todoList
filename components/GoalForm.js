@@ -15,6 +15,7 @@ const GoalForm = ({ addGoal }) => {
                 behavior={Platform.OS === 'ios' ? "padding" : "height"}
                 style={styles.writeGoalWrapper}>
                 <TextInput style={styles.input} placeholder={"Write your new goals"} value={goal} onChangeText={text => setGoal(text)} />
+               
                 <TouchableOpacity onPress={handleAddGoal} >
                     <View style={styles.addWrapper}>
                         <Text style={styles.button}>+</Text>
@@ -53,13 +54,6 @@ addWrapper: {
     borderColor: '#00ffff',
     borderWidth: 1
     },
-button: {
-    backgroundColor: '#04AA6D',
-    color: 'white',
-    padding: '15px 32px',
-    textAlign: 'center',
-    fontSize: 16,
-  },
 });
 
 export default GoalForm;

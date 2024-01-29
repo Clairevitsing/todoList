@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { ImageBackground, StyleSheet, Text, View, Alert, } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, Alert, SafeAreaView} from 'react-native';
 import React, { useState } from 'react';
 import GoalList from './components/GoalList';
 import GoalForm from './components/GoalForm';
@@ -39,37 +39,22 @@ export default function App() {
 
   const deleteGoal = (index) => {
 
-    Alert.alert(
-      
-      'Alert Deletion', 'Are you sure to delete?',
-      [{
-        text: 'Cancel',
-        style: 'Cancel',
-      },
-      {
-        text: 'Confirm',
-        onPress: () => {
-
           let updatedGoals = [...goalItems];
           updatedGoals.splice(index, 1);
           setGoalItems(updatedGoals);
         }
-      },
-    ]);
-  }
 
-  const editGoal = (index) => { 
-    setEditedGoal(goalItems[index]);
+  const editGoal = (goal, editedText) => { 
+    
+    setEditedGoal(goal);
+    let index = goalItems.index;
+    goalItems.splice(index, 1, {id: index, goal: editedText});
+
   };
-  const updateGoal = (index,editedGoal) => {
-    const updatedGoals = [...goalItems];
-    updatedGoals[index] = editedGoal;
-    console.log("updatedGoals:", updatedGoals[index])
-    setGoalItems(updatedGoals);
-  }
+  
 
   return (
-     
+     <SafeAreaView style={{flex: 1}}>
     <View style={styles.container}>
       <ImageBackground source={require('./assets/home.jpg')} resizeMode='cover' style={styles.image}>
         <View style={styles.goalsWrapper}>
@@ -80,12 +65,12 @@ export default function App() {
            <GoalList
               goalItems={goalItems}
               onDelete={deleteGoal}
-              onUpdate={updateGoal}
-              editedGoal={editedGoal}
+              onUpdate={editedGoal}
             />
     </View> 
         </ImageBackground>
-    </View>
+      </View>
+      </SafeAreaView>
   )
 }
 
