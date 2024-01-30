@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, KeyboardAvoidingView, TextInput, TouchableOpacity, Text, StyleSheet, Platform, } from 'react-native';
 
 
-const GoalForm = ({ addGoal, goal, setGoal, editedGoal }) => {
+const GoalForm = ({ addGoal, goal, setGoal, editedGoal,updateGoal}) => {
    
 
  const handleAddGoal = () => {
@@ -17,7 +17,7 @@ const GoalForm = ({ addGoal, goal, setGoal, editedGoal }) => {
                 style={styles.writeGoalWrapper}>
                 <TextInput style={styles.input} placeholder={"Write your new goals"} value={goal} onChangeText={text => setGoal(text)} />
 
-                {editedGoal? (<TouchableOpacity  >
+                {editedGoal? (<TouchableOpacity  onPress={updateGoal}>
                     <View style={styles.addWrapper}>
                         <Text style={styles.button}>Save</Text>
                     </View>

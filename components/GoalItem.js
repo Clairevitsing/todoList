@@ -20,7 +20,7 @@ const GoalItem = ({ item, index, onDelete, onUpdate }) => {
                                  <Text style={styles.text}>X</Text>
                             </Pressable>
             
-                    <Pressable style={styles.editButton} onPress={() => onUpdate(item)}>
+                    <Pressable style={styles.editButton} onPress={() => onUpdate(index)}>
                                 <Text style={styles.text}>edit</Text>
                             </Pressable>
                  <Modal

@@ -48,23 +48,22 @@ export default function App() {
           setGoalItems(updatedGoals);
         }
 
-  const editGoal = (item) => { 
+  const editGoal = (index) => { 
     console.log("edit goal")
-     console.log("goal :", item)
-    // console.log("index :", index)
-    //console.log ("editedGoal : ", editedGoal)
-    setEditedGoal(item);
-    setGoal(item);
+     console.log("goal :", index)
+    setEditedGoal({ index, value: goalItems[index] });
+    setGoal(goalItems[index]);
   };
 
-  const updateGoal = (index, editedGoal) => {
-    // const updatedGoalItems = goalItems.map((item) => {
-    //   if (index === editedGoal.index) {
-    //     return { ...item, goal: editedGoal };
-    //   }
-    //   return item;
-    // });
-    // setGoalItems(updatedGoalItems);
+  const updateGoal = () => {
+     if (!editedGoal) {
+      return;
+    }
+    const updatedGoalItems = [...goalItems];
+    updatedGoalItems[editedGoal.index] = goal;
+    setGoalItems(updatedGoalItems);
+    setEditedGoal(null);
+    setGoal('');
   }
 
 
@@ -76,7 +75,7 @@ export default function App() {
           
         <Text style={styles.sectionTitle}>Goal List</Text>
         { console.log("samplegoals :",sampleGoals) }
-            <GoalForm addGoal={addGoal} goal={goal} setGoal={setGoal} editedGoal={editedGoal}/>
+            <GoalForm addGoal={addGoal} goal={goal} setGoal={setGoal} editedGoal={editedGoal} updateGoal={updateGoal}/>
            <GoalList
               goalItems={goalItems}
               onDelete={deleteGoal}
