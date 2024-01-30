@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { ImageBackground, StyleSheet, Text, View, Alert, SafeAreaView} from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import GoalList from './components/GoalList';
 import GoalForm from './components/GoalForm';
 
@@ -20,12 +20,17 @@ export default function App() {
     "Faire un triathlon",
   ];
   
-  const [editedGoal, setEditedGoal] = useState(null);
+  const [goal, setGoal] = useState('');
+  const [editedGoal, setEditedGoal] = useState();
 
   //il faut initialiser le tableau
   const [goalItems, setGoalItems] = useState(sampleGoals);
+  
 
+//   useEffect(() => { 
 
+// console.log("goal value :", goal)
+//   },[goal]);
     const addGoal = (goal) => {
    
         if (goal === "") {
@@ -38,20 +43,30 @@ export default function App() {
  
 
   const deleteGoal = (index) => {
-
           let updatedGoals = [...goalItems];
           updatedGoals.splice(index, 1);
           setGoalItems(updatedGoals);
         }
 
-  const editGoal = (goal, editedText) => { 
-    
-    setEditedGoal(goal);
-    let index = goalItems.index;
-    goalItems.splice(index, 1, {id: index, goal: editedText});
-
+  const editGoal = (item) => { 
+    console.log("edit goal")
+     console.log("goal :", item)
+    // console.log("index :", index)
+    //console.log ("editedGoal : ", editedGoal)
+    setEditedGoal(item);
+    setGoal(item);
   };
-  
+
+  const updateGoal = (index, editedGoal) => {
+    // const updatedGoalItems = goalItems.map((item) => {
+    //   if (index === editedGoal.index) {
+    //     return { ...item, goal: editedGoal };
+    //   }
+    //   return item;
+    // });
+    // setGoalItems(updatedGoalItems);
+  }
+
 
   return (
      <SafeAreaView style={{flex: 1}}>
@@ -61,11 +76,11 @@ export default function App() {
           
         <Text style={styles.sectionTitle}>Goal List</Text>
         { console.log("samplegoals :",sampleGoals) }
-           <GoalForm addGoal={addGoal} />
+            <GoalForm addGoal={addGoal} goal={goal} setGoal={setGoal} editedGoal={editedGoal}/>
            <GoalList
               goalItems={goalItems}
               onDelete={deleteGoal}
-              onUpdate={editedGoal}
+              onUpdate={editGoal}
             />
     </View> 
         </ImageBackground>
@@ -108,8 +123,5 @@ const styles = StyleSheet.create({
   
 
 });
-
-
-
 
 

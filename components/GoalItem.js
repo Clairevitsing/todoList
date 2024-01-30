@@ -11,14 +11,18 @@ const GoalItem = ({ item, index, onDelete, onUpdate }) => {
      };
 
     return (
-            
+          
         <View style={styles.item} key={index.toString()}>
             <View style={styles.itemLeft}>
                 <View style={styles.square}></View>
                     <Text style={styles.itemText}>{item}</Text>
-                            <Pressable style={styles.deleteButton} onPress={() => { setModalVisible(!modalVisible), onDelete(index) }}>
+                            <Pressable style={styles.deleteButton} onPress={() => { setModalVisible(!modalVisible),  onDelete(index) }}>
                                  <Text style={styles.text}>X</Text>
-                </Pressable>
+                            </Pressable>
+            
+                    <Pressable style={styles.editButton} onPress={() => onUpdate(item)}>
+                                <Text style={styles.text}>edit</Text>
+                            </Pressable>
                  <Modal
                         animationType="slide"
                         transparent={true}
@@ -31,7 +35,7 @@ const GoalItem = ({ item, index, onDelete, onUpdate }) => {
                         <View style={styles.modalView}>
                             <Text style={styles.modalText}>Are you sure to delete this goal? </Text>
                             <View style={styles.buttonContainer}>
-                                <TouchableOpacity onPress={confirmDelete}  style={[styles.button, styles.buttonDelete]}>
+                               <TouchableOpacity onPress={confirmDelete}  style={[styles.button, styles.buttonDelete]}>
                                         <Text style={styles.buttonText}>Confirm</Text>  
                                 </TouchableOpacity>
                                  <TouchableOpacity onPress={()=>setModalVisible(false)}  style={[styles.button, styles.buttonCancel]}>
@@ -42,21 +46,21 @@ const GoalItem = ({ item, index, onDelete, onUpdate }) => {
                     </View>  
                 </Modal>
             </View>     
-                <Pressable style={styles.editButton} onPress={() => onUpdate(index, editedText)}>
-                    <Text style={styles.text}>edit</Text>
-                </Pressable>
-            </View>
+                
+        </View>
        );
 };
 
 const styles = StyleSheet.create({
-     item: {
+    item: {
+        display:'flex',
         backgroundColor: '#ffe4e1',
         padding: 5,
         borderWidth: 1,
         borderColor: '#1e90ff',
         borderRadius: 10,
         fixDirection: 'row',
+        flexWrap: 'wrap',
         justifyContent: 'space-between',
         marginBottom: 10,
     },
@@ -66,7 +70,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         flexWrap: 'wrap',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
     },
     square: {
         width: 24,
@@ -78,7 +82,7 @@ const styles = StyleSheet.create({
     },
 
     itemText: {
-        maxWidth: '60%',
+        maxWidth: '40%',
     },
 
   deleteButton: {
@@ -90,7 +94,8 @@ const styles = StyleSheet.create({
         elevation: 3,
         backgroundColor: '#DC143C',
   },
-  editButton: {
+    editButton: {
+       maxWidth:'20%',
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 12,
@@ -124,7 +129,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirecrion: 'row',
     justifyContent: 'space-around',
-    width: '100%',
+    flexWrap: 'wrap',
+    maxWidth: '100%',
     },
   button: {
     borderRadius: 20,
@@ -133,10 +139,13 @@ const styles = StyleSheet.create({
     margin:10,
     },
   
- buttonDelete: {
-    backgroundColor:"#dc143c",
+    buttonDelete: {
+        maxWidth: '40%',
+        marginTop: 10,
+        backgroundColor:"#dc143c",
     },
- buttonCancel: {
+    buttonCancel: {
+      maxWidth: '40%',
       backgroundColor:"#008000",
   }
 
