@@ -43,9 +43,10 @@ export default function App() {
  
 
   const deleteGoal = (index) => {
-          let updatedGoals = [...goalItems];
-          updatedGoals.splice(index, 1);
-          setGoalItems(updatedGoals);
+    // console.log("goal index :", index);
+    // console.log("goalItems :", goalItems);
+    const results = goalItems.filter ( (item,i) => i !== index)
+          setGoalItems(() => [...results]);
         }
 
   const editGoal = (index) => { 
@@ -68,27 +69,30 @@ export default function App() {
 
 
   return (
-     <SafeAreaView style={{flex: 1}}>
-    <View style={styles.container}>
-      <ImageBackground source={require('./assets/home.jpg')} resizeMode='cover' style={styles.image}>
-        <View style={styles.goalsWrapper}>
-          
-        <Text style={styles.sectionTitle}>Goal List</Text>
-        { console.log("samplegoals :",sampleGoals) }
-            <GoalForm addGoal={addGoal} goal={goal} setGoal={setGoal} editedGoal={editedGoal} updateGoal={updateGoal}/>
-           <GoalList
-              goalItems={goalItems}
-              onDelete={deleteGoal}
-              onUpdate={editGoal}
-            />
-    </View> 
-        </ImageBackground>
-      </View>
-      </SafeAreaView>
+    <SafeAreaView style={styles.safeAreaViewContainer}>
+      <View style={styles.container}>
+        <ImageBackground source={require('./assets/home.jpg')} resizeMode='cover' style={styles.image}>
+          <View style={styles.goalsWrapper}>
+            
+          <Text style={styles.sectionTitle}>Goal List</Text>
+          { console.log("samplegoals :",sampleGoals) }
+              <GoalForm addGoal={addGoal} goal={goal} setGoal={setGoal} editedGoal={editedGoal} updateGoal={updateGoal}/>
+            <GoalList
+                goalItems={goalItems}
+                onDelete={deleteGoal}
+                onUpdate={editGoal}
+              />
+      </View> 
+          </ImageBackground>
+        </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  safeAreaViewContainer: {
+    flex: 1
+  },
   container: {
     flex: 1,
     alignItems: 'center',
@@ -120,7 +124,6 @@ const styles = StyleSheet.create({
     
   },
   
-
 });
 
 

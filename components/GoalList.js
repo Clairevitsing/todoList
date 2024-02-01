@@ -10,8 +10,8 @@ const GoalList = ({ goalItems,  onDelete, onUpdate }) => {
           key={index.toString()}
           item={item}
           index={index}
-          onDelete={onDelete}
-          onUpdate={onUpdate}
+          onDelete={() => onDelete(index)}
+          onUpdate={() => onUpdate(index)}
         />
       ))}
     </ScrollView>

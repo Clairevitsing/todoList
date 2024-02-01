@@ -7,7 +7,7 @@ const GoalItem = ({ item, index, onDelete, onUpdate }) => {
 
     const confirmDelete = () => {
         setModalVisible(false);
-        onDelete();
+        onDelete(index);
      };
 
     return (
@@ -16,7 +16,7 @@ const GoalItem = ({ item, index, onDelete, onUpdate }) => {
             <View style={styles.itemLeft}>
                 <View style={styles.square}></View>
                     <Text style={styles.itemText}>{item}</Text>
-                            <Pressable style={styles.deleteButton} onPress={() => { setModalVisible(!modalVisible),  onDelete(index) }}>
+                            <Pressable style={styles.deleteButton} onPress={() => { setModalVisible(true) }}>
                                  <Text style={styles.text}>X</Text>
                             </Pressable>
             
@@ -28,14 +28,13 @@ const GoalItem = ({ item, index, onDelete, onUpdate }) => {
                         transparent={true}
                         visible={modalVisible}
                         onRequestClose={() => {
-                        Alert.alert('Modal has been closed.');
-                        setModalVisible(!modalVisible);
+                        setModalVisible(!modalVisible)
                      }}>
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
                             <Text style={styles.modalText}>Are you sure to delete this goal? </Text>
                             <View style={styles.buttonContainer}>
-                               <TouchableOpacity onPress={confirmDelete}  style={[styles.button, styles.buttonDelete]}>
+                               <TouchableOpacity onPress= { confirmDelete }  style={[styles.button, styles.buttonDelete]}>
                                         <Text style={styles.buttonText}>Confirm</Text>  
                                 </TouchableOpacity>
                                  <TouchableOpacity onPress={()=>setModalVisible(false)}  style={[styles.button, styles.buttonCancel]}>
